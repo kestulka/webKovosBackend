@@ -8,7 +8,7 @@ const makeFavorite = asyncHandler(async(req, res) => {
     }
 
     const favorite = await Favorites.create({
-        logoId: req.body.user._id,
+        logoId: req.body.job_id
     })
 
     req.user.favorites.push(favorite._id)

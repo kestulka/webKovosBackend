@@ -8,10 +8,10 @@ const logotypeSchema = new mongoose.Schema({
         required: true,
     },
 
-    prompt: {
+    job_id: {
         type: String,
-        required: true
-    }
+        required: true,
+    },
 
     }
 )

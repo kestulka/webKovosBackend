@@ -27,6 +27,7 @@ const generateLogotype = async(req, res) => {
             redirect: "follow" // REIKIA NUKREIPTI I /API/V1/LIST
         });
 
+
         const generateNewLogotype = await response.json();
         res.status(201).json(generateNewLogotype)
     } catch(error) {
@@ -34,9 +35,7 @@ const generateLogotype = async(req, res) => {
     }
 };
 
-const addFavorite = async(req, res) => {
-    
-}
+
 
 
 module.exports = {getLogotypes, generateLogotype}
