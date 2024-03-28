@@ -1,20 +1,24 @@
 const Favorites = require("../models/Favorites")
+const Logotype = require("../models/Logotype")
 const asyncHandler = require("express-async-handler")
 
 const makeFavorite = asyncHandler(async(req, res) => {
-    if (!req.body._id){
-        res.status(400)
-        throw new Error("Please add logotype id")
+
+    const logotype = await Logotype.findById(req.params.id)
+
+    if(!logotype){
+        res.status(404)
+        throw new Error("logotype with this id was not found")
     }
 
-    const favorite = await Favorites.create({
-        logoId: req.body.job_id
+    const favorites = await Favorites.create({
+        logoId: req.logotype._id
     })
 
-    req.user.favorites.push(favorite._id)
-    await req.user.save()
+    req.logoId.push(favorites._id)
+    await req.logotype.save()
 
-    res.status(201).json(favorite)
+    res.status(201).json(logotype)
 })
 
 module.exports = {
