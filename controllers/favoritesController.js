@@ -4,6 +4,8 @@ const asyncHandler = require("express-async-handler")
 
 const makeFavorite = asyncHandler(async(req, res) => {
 
+    try {
+
     const logotype = await Logotype.findById(req.params.id)
 
     if(!logotype){
@@ -11,14 +13,16 @@ const makeFavorite = asyncHandler(async(req, res) => {
         throw new Error("logotype with this id was not found")
     }
 
-    const favorites = await Favorites.create({
-        logoId: req.logotype._id
+    const favorites = new Favorites({
+        logoId: req.body.logoId
     })
+    await favorites.save()
+    res.status(201).json(favorites)
 
-    req.logoId.push(favorites._id)
-    await req.logotype.save()
+    } catch(error){
+        res.status(500).json({ message: error.message})
+    }
 
-    res.status(201).json(logotype)
 })
 
 module.exports = {
